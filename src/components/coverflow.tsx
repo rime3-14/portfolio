@@ -75,14 +75,18 @@ export function Coverflow({ items }: { items: Item[] }) {
 
           return (
             <div className="coverflow-card" key={slide.slug} data-side={side} aria-hidden={side === "hidden" ? true : undefined}>
-              <div className="coverflow-art" aria-hidden={side !== "center" ? true : undefined}>{slide.artwork}</div>
               {side === "center" ? (
-                <Link className="coverflow-hit" href={"/work/" + slide.slug + "/"} aria-label={"Read case study: " + slide.title} />
+                <>
+                  <div className="coverflow-art">{slide.artwork}</div>
+                  <Link className="coverflow-hit" href={"/work/" + slide.slug + "/"} aria-label={"Read case study: " + slide.title} />
+                </>
               ) : side !== "hidden" && (
                 <button type="button" className="coverflow-hit" aria-label={"Show " + slide.title} onClick={(event) => {
                   if (event.detail === 0) titleLink.current?.focus({ preventScroll: true });
                   setActive(index);
-                }} />
+                }}>
+                  <span className="coverflow-preview" aria-hidden="true">{slide.title}</span>
+                </button>
               )}
             </div>
           );

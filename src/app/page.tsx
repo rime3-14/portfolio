@@ -34,7 +34,7 @@ export default function Home() {
       <section className="editorial-section" id="selected-work">
         <SectionHead number="02" title="Selected Work" />
         <Coverflow items={featuredProjects.map(({ slug, title, description, category, visual, githubOrganization }) => ({
-          slug, title, description, category, githubOrganization, artwork: <ProjectVisual visual={visual} />,
+          slug, title, description, category, githubOrganization, artwork: <ProjectVisual visual={visual} featured />,
         }))} />
       </section>
 

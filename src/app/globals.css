@@ -102,6 +102,9 @@ a, button, input, summary, [tabindex="0"] { outline-offset: 5px; }
 .coverflow-art .project-visual-body { aspect-ratio: auto; }
 .coverflow-hit { position: absolute; inset: 0; width: 100%; cursor: pointer; }
 .coverflow-hit:focus-visible { outline: 3px solid #4b795a; outline-offset: -5px; }
+.coverflow-preview { position: absolute; top: 50%; width: 35%; transform: translateY(-50%); color: var(--ink); font-size: clamp(.9rem, 1.5vw, 1.45rem); font-weight: 630; line-height: 1.12; }
+.coverflow-card[data-side="previous"] .coverflow-preview { left: 13%; text-align: left; }
+.coverflow-card[data-side="next"] .coverflow-preview { right: 13%; text-align: right; }
 .coverflow-caption { display: flex; justify-content: space-between; align-items: start; gap: 1.25rem; padding-top: 1.2rem; }
 .coverflow-title { display: inline-block; margin: .35rem 0 .45rem; font-size: clamp(1.65rem, 3.15vw, 3.15rem); line-height: 1.05; letter-spacing: -.046em; font-weight: 660; }
 .coverflow-title:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .16em; }
@@ -115,6 +118,7 @@ a, button, input, summary, [tabindex="0"] { outline-offset: 5px; }
 .project-visual-body { overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr); place-items: center; min-height: 0; aspect-ratio: 1.92; }
 .project-visual-body :is(svg, img) { max-width: 100%; }
 .project-visual-body svg { width: 100%; height: 100%; }
+.visual-credit { margin-top: .65rem; color: var(--muted); font-size: .87rem; }
 .precision .project-visual-body { background: var(--forest); aspect-ratio: 2.14; }
 .llm .project-visual-body { background: #eee7e5; padding: clamp(.85rem, 2.2vw, 2.15rem); }
 .study-buddy .project-visual-body { background: #282038; }
@@ -273,6 +277,7 @@ a, button, input, summary, [tabindex="0"] { outline-offset: 5px; }
   .coverflow-card { width: 73%; aspect-ratio: 1.75; }
   .coverflow-card[data-side="previous"] { transform: translateX(-54%) rotateY(36deg) scale(.85); }
   .coverflow-card[data-side="next"] { transform: translateX(54%) rotateY(-36deg) scale(.85); }
+  .coverflow-preview { display: none; }
   .coverflow-caption { flex-direction: column; gap: .8rem; }
   .coverflow-controls { align-self: end; }
   .project-visual-body { aspect-ratio: 1.75; }

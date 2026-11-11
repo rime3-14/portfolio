@@ -30,7 +30,7 @@ export function WaveStudy() {
   );
 }
 
-function Precision() {
+function Precision({ featured }: { featured: boolean }) {
   const curve = (offset: number) => Array.from({ length: 129 }, (_, i) => {
     const t = i / 128;
     const x = 68 + t * 672;
@@ -50,7 +50,7 @@ function Precision() {
         <path d={curve(0)} stroke="#d8f4df" strokeWidth="2.6" />
       </g>
       <g fill="#cee0d2" className="diagram-type">
-        <text x="68" y="20">ILLUSTRATIVE ERROR BOUND</text>
+        {!featured && <text x="68" y="20">ILLUSTRATIVE ERROR BOUND</text>}
         <text x="67" y="274">0</text>
         <text x="397" y="274">0.5</text>
         <text x="734" y="274">1</text>
@@ -97,10 +97,8 @@ function StudyBuddyTrace() {
   return (
     <svg viewBox="0 0 640 300" role="img" aria-label="Study Buddy traces one Gemini call each for summaries and flashcards, and two for quizzes">
       <g fontFamily="var(--font-mono)">
-        <text x="42" y="53" fill="#f5efff" fontSize="27" fontWeight="500">Study Buddy</text>
-        <text x="42" y="82" fill="#cfbfe9" fontSize="15">Datadog LLM Observability</text>
         {workflows.map(({ name, calls }, row) => {
-          const y = 112 + row * 49;
+          const y = 67 + row * 64;
           return (
             <g key={name}>
               <path d={`M42 ${y + 41}H598`} stroke="#564765" />
@@ -119,19 +117,41 @@ function StudyBuddyTrace() {
   );
 }
 
-export function ProjectVisual({ visual }: { visual: ProjectVisualKind }) {
+function ReportWorkflow() {
   return (
-    <div className={"project-visual " + visual}>
+    <svg viewBox="0 0 640 240" role="img" aria-label="An internal TeamWork workflow turns an interview transcript into an exportable report">
+      <g fill="none" stroke="#887176" strokeWidth="1.5">
+        <path d="M200 116h46m-8-6 8 6-8 6M394 116h46m-8-6 8 6-8 6" />
+      </g>
+      <g fontFamily="var(--font-mono)" fontSize="16" textAnchor="middle">
+        <rect x="52" y="89" width="148" height="54" rx="5" fill="#fff8f4" stroke="#b9a6a4" />
+        <text x="126" y="122" fill="#38292c">Transcript</text>
+        <rect x="246" y="89" width="148" height="54" rx="5" fill="#4b323a" />
+        <text x="320" y="122" fill="#fff8f4">AI workflow</text>
+        <rect x="440" y="89" width="148" height="54" rx="5" fill="#fff8f4" stroke="#b9a6a4" />
+        <text x="514" y="122" fill="#38292c">Report</text>
+        <text x="514" y="171" fill="#624f52" fontSize="13">PDF · Word · PowerPoint</text>
+      </g>
+    </svg>
+  );
+}
+
+export function ProjectVisual({ visual, featured = false }: { visual: ProjectVisualKind; featured?: boolean }) {
+  return (
+    <figure className={"project-visual " + visual}>
       <div className="project-visual-body">
-        {visual === "precision" && <Precision />}
-        {visual === "llm" && <AsciiCover />}
+        {visual === "precision" && <Precision featured={featured} />}
+        {visual === "llm" && (featured ? <ReportWorkflow /> : <AsciiCover />)}
         {visual === "study-buddy" && <StudyBuddyTrace />}
         {visual === "podcapp" && (
           <Image src={asset("/projects/podcapp.png")} alt="PODCApp logo with two blue stars wearing headphones"
             width={200} height={200} unoptimized />
         )}
       </div>
-    </div>
+      {visual === "llm" && !featured && (
+        <figcaption className="visual-credit">ASCII illustration based on the cover of <cite>Build a Large Language Model (From Scratch)</cite> by Sebastian Raschka.</figcaption>
+      )}
+    </figure>
   );
 }
 
