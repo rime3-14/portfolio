@@ -17,7 +17,9 @@ export const navigation = [
 type Contact = { github?: string; linkedin?: string; email?: string; cv?: string };
 
 // Add verified contact details here. For a local CV, add the PDF to public/.
-export const contact: Contact = {};
+export const contact: Contact = {
+  linkedin: "https://www.linkedin.com/in/rime-chihab-eddine/",
+};
 
 export type TimelineEntry = { title: string; place: string; dates: string; description: string };
 
